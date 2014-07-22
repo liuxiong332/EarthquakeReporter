@@ -1,10 +1,14 @@
 package com.liuxiong.earthquakereporter;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 
 public class EarthquakeActivity extends Activity {
@@ -16,6 +20,14 @@ public class EarthquakeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_earthquake);
+
+        SearchManager searchManager =
+                (SearchManager)getSystemService(Context.SEARCH_SERVICE);
+        SearchableInfo searchableInfo =
+                searchManager.getSearchableInfo(getComponentName());
+
+        SearchView searchView = (SearchView)findViewById(R.id.search_view);
+        searchView.setSearchableInfo(searchableInfo);
     }
 
 
@@ -39,7 +51,7 @@ public class EarthquakeActivity extends Activity {
         }
         switch (id) {
             case MENU_PREFERENCES: {
-                Intent i = new Intent(this, PreferencesActivity.class);
+                Intent i = new Intent(this, UserPreferenceActivity.class);
                 startActivityForResult(i, PREFERENCE_REQUCODE);
                 return true;
             }
